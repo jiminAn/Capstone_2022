@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset # 데이터로더
+import os
 
 from kogpt2_transformers import get_kogpt2_tokenizer
 
@@ -12,7 +13,7 @@ class WellnessAutoRegressiveDataset(Dataset):
   """Wellness Auto Regressive Dataset"""
 
   def __init__(self,
-               file_path = "/Users/mac/git/Capstone_2022/jman/data/wellness_dialog1.user_chat",
+               file_path = os.path.join(os.getcwd() + "/../data/wellness_dialog1.user_chat"),
                n_ctx = 1024
                ):
     self.file_path = file_path
