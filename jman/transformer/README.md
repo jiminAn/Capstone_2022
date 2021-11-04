@@ -1,6 +1,5 @@
 # Transformer example code
 
-(2021.04.18~)
 
 ### Kowiki model & vocab : `./kowiki_vocab_data`
 
