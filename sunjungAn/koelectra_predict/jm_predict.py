@@ -12,12 +12,6 @@ with open(TARGET_FILE, 'r') as f:
 		category, _ = line.split('\t')
 		categories.append(category)
 
-
-
-
-file = open(TEST_FILE, 'r', encoding='utf-8')
-
-
 X = []
 y = []
 
