@@ -8,12 +8,21 @@ from gui.kogpt2_transformers.text_generator import answer_generator
 
 
 class AnsWidget(QtWidgets.QWidget):
-    def __init__(self,time,tweet):
+    def __init__(self,time,tweet, ai_name):
         QtWidgets.QWidget.__init__(self, flags=QtCore.Qt.Widget)
 
         self.layout = QtWidgets.QVBoxLayout()
         self.layout.setStretch(1, 2)
         self.layout.setStretch(2, 1)
+
+        self.ai_name = QtWidgets.QLabel()
+        self.ai_name.setEnabled(False)
+        self.ai_name.setFrameShape(QtWidgets.QFrame.Box)
+        self.ai_name.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.ai_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.ai_name.setObjectName("ai_name")
+        self.ai_name.setText(ai_name)
+        self.layout.addWidget(self.ai_name)
 
         self.ans_widget = QtWidgets.QLabel()
         self.ans_widget.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -120,39 +129,43 @@ class Ui_MainWindow(object):
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def clear_answer_layout(self):
-        self.ans_layout = QtWidgets.QBoxLayout(QtWidgets.QBoxLayout.TopToBottom)
-        self.ans_layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignTop)
-        self.formLayout.addLayout(self.ans_layout)
-        self.groupbox = QtWidgets.QGroupBox("AI-Emotional-Card")
-        self.groupbox.setLayout(self.formLayout)
-        self.scrollArea.setWidget(self.groupbox)
-
     def set_sentence(self, sentence):
         set_sentence = ""
-        tmp = ""
+        dot_cnt = 0
         for i,s in enumerate(sentence):
+            if dot_cnt == 5: # 5문장까지만 허
+                break
             if s != '.': #tmp=떨어진다고 해요 , 돌아가고 싶은데...
                 set_sentence += s
             else:
-                if sentence[i+1] != '.':
+                if i+1 != len(sentence) and sentence[i+1] != '.':
+                    dot_cnt += 1
                     set_sentence += '.\n'
                 else:
                     set_sentence += s
         return set_sentence
 
+    def set_clear_layout(self, layout):
+        for i in reversed(range(layout.count())):
+            layout.itemAt(i).widget().setParent(None)
+
 
     def add_tweet_widget(self):
         q = self.question.toPlainText()
-        #if self.tmp_q != q and self.not_first: # clear answer layout
-        #    self.clear_answer_layout()
+        if self.tmp_q != q and self.not_first: # clear answer layout
+            self.set_clear_layout(self.ans_layout)
         self.classif_btn.setText(self.q_category.get_question_category(q))
         yymmdd = time.strftime('%Y년 %m월 %d일 ', time.localtime(time.time()))
         hhmmss = time.strftime('%H시 %M분 %S초 ', time.localtime(time.time()))
 
-        ans = self.set_sentence(self.ans_gen.get_answer(q))
-        widget = AnsWidget(yymmdd+hhmmss, ans)
-        self.ans_layout.addWidget(widget)
+        answers = self.ans_gen.get_answers(q)
+        for name, ans in answers:
+            widget = AnsWidget(yymmdd + hhmmss, self.set_sentence(ans), name)
+            self.ans_layout.addWidget(widget)
+
+        #generator_name, ans = self.ans_gen.get_answer(q)
+        #widget = AnsWidget(yymmdd+hhmmss, self.set_sentence(ans), generator_name)
+        #self.ans_layout.addWidget(widget)
         self.tmp_q = q
         if not self.not_first:
             self.not_first = True
