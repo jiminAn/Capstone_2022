@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 import random
 
-from gui.kobert_model.kobert import KoBERTforSequenceClassfication, kobert_input
-from gui.kobert_model.kobert_transformers import get_tokenizer
+from hyejiLim.model.kobert import KoBERTforSequenceClassfication, kobert_input
+from hyejiLim.model.kobert_transformers import get_tokenizer
 
 
 class DialogKoBERT:
