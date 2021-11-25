@@ -12,6 +12,7 @@
 A. category_indexing_predict.py
   + 배경/생활/여행/파리 --> 배경/생활 
   + 앞에 2개의 카테고리만 같으면 같은 카테고리로 인정
+  + [[참고]통합 모습](https://github.com/jiminAn/Capstone_2022/blob/main/sunjungAn/koelectra_predict/data/category_indexing_predict.txt)
 
 ### 모든 카테고리 기준 (predict.py 실행)
 1. Accuracy: 0.58
