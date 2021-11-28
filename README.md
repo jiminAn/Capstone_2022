@@ -76,9 +76,9 @@ torch
 
 ------
 
-<img src="/Users/mac/git/Capstone_2022/img/1.gif" align="right" width=1000>
+<img src="img/1.gif" align="right" width=1000>
 
-<img src="/Users/mac/git/Capstone_2022/img/2.gif" align="right" width=1000>
+<img src="img/2.gif" align="right" width=1000>
 
 
 
