@@ -1,5 +1,5 @@
 # AI 감성 카드
-### 2021-2022 Capstone Project
+## 2021-2022 Capstone Project
 
 # CONTENTS
 
