@@ -60,11 +60,7 @@ class DialogElectra:
         #return self.category[str(max_index)]
         return max_index
 
-
-
-
 def load_wellness_answer():
-  root_path = '..'
   category_path = "./data/wellness_dialog_category.txt"
   answer_path = "./data/wellness_dialog_answer.txt"
 
@@ -76,11 +72,11 @@ def load_wellness_answer():
 
   category = {}
   answer = {}
-  for line_num, line_data in enumerate(category_lines):
+  for line_data in category_lines:
     data = line_data.split("\t")
     category[data[1][:-1]]=data[0]
 
-  for line_num, line_data in enumerate(answer_lines):
+  for line_data in answer_lines:
     data = line_data.split("\t")
     keys = answer.keys()
     if(data[0] in keys):

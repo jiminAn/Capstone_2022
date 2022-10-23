@@ -11,7 +11,7 @@ class DialogKoBERT:
         self.checkpoint_path =f"{self.root_path}/model"
         self.save_ckpt_path = f"{self.checkpoint_path}/kobert-wellnesee-text-classification_epoch50.pth"
         #답변과 카테고리 불러오기
-        self.category, self.answer = load_wellness_answer()
+        # self.category, self.answer = load_wellness_answer()
 
         ctx = "cuda" if torch.cuda.is_available() else "cpu"
         self.device = torch.device(ctx)
@@ -26,7 +26,6 @@ class DialogKoBERT:
 
         self.tokenizer = get_tokenizer()
     def predict(self, sentence):
-        root_path = '.'
         category_path = "./data/category.txt"
         c_f = open(category_path, 'r', encoding='UTF8')
         category_lines = c_f.readlines()

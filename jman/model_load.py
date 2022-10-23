@@ -4,7 +4,7 @@ from kogpt2_transformers import get_kogpt2_tokenizer
 
 class answer_generator:
   def __init__(self):
-    self.save_ckpt_path = f"./model/checkpoint/kogpt2-wellnesee-auto-regressive.pth"
+    self.save_ckpt_path = f"./model/checkpoint/kogpt2-data2_3_ep10.pth"
     self.ctx = "cuda" if torch.cuda.is_available() else "cpu"
     self.device = torch.device(self.ctx)
     # 저장한 Checkpoint 불러오기

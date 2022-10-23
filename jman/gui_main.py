@@ -3,6 +3,8 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QTextEdit, QVBoxLayout, QPushButton, QHBoxLayout
 from model_load import answer_generator
+import re
+import string
 
 
 
@@ -53,9 +55,23 @@ class MyApp(QWidget):
         self.ans_btn.setVisible(True)
         self.ans_te.setVisible(True)
 
+    def trim_text(self, text):
+        sentence_count = 0
+        last = -1
+        for idx, char in enumerate(text):
+            if char in string.punctuation:
+                if char == ',':
+                    continue
+                last = idx
+                sentence_count += 1
+                if sentence_count == 2:
+                    break
+        return text[:last + 1]
+
     def set_text(self):
-        self.ans_btn.setText('감정/슬픔')
-        self.ans_te.setPlaceholderText(self.get_answer())
+        self.ans_btn.setText('준비중')
+        result = self.get_answer()
+        self.ans_te.setPlaceholderText(self.trim_text(result))
 
     def get_answer(self):
         text = self.te.toPlainText()
